@@ -61,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
     }
     public void showDialog(){
         builder = new AlertDialog.Builder(this);
-        builder.setTitle("简介");
-        builder.setMessage("这是一个Beta版,遵守GPL V3开源协议.");
+        builder.setTitle("关于");
+        builder.setMessage("琉璃神社助手是Tataki个人作品\n只可用于学习交流。\n\n版本:Beta1.0版\n遵守GPL_V3开源协议。");
         builder.setPositiveButton("确定",null);
-        builder.show();
+        builder.create().show();
     }
 }
