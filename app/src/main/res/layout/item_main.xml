@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="10dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingTop="5dp">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/item_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        fresco:roundedCornerRadius="20dp"
+        fresco:roundBottomLeft="false"
+        fresco:roundBottomRight="false"
+        fresco:roundingBorderWidth="2dp"
+        fresco:roundingBorderColor="#f22283"
+        fresco:backgroundImage="@drawable/bg"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/item_image_view"
+        android:orientation="vertical"
+        android:background="#81000000">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_title"
+            android:text="title"
+            android:textColor="#f22283"
+            android:textSize="65px"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_content"
+            android:text="content"
+            android:textColor="#6160e1"
+            android:maxLines="3"/>
+    </LinearLayout>
+</RelativeLayout>

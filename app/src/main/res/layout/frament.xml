@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.cjj.MaterialRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:isLoadMore="true"
+        app:overlay="true"
+        app:wave_show="true"
+        app:wave_color="@color/colorAccent"
+        app:wave_height_type="higher"
+        >
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.cjj.MaterialRefreshLayout>
+
+</LinearLayout>
