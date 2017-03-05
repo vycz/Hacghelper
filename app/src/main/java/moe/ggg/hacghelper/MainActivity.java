@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
     public void showDialog(){
         builder = new AlertDialog.Builder(this);
         builder.setTitle("简介");
-        builder.setMessage("这是一个Beta版,遵守GPL V3开源协议");
+        builder.setMessage("这是一个Beta版,遵守GPL V3开源协议.");
         builder.setPositiveButton("确定",null);
         builder.show();
     }
