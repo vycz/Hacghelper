@@ -15,8 +15,21 @@ import java.util.List;
 
 public class Items {
     private List<Item> Items;
+    private String key = "1";
+    public List<Item> getItems(int type,int page,String key){
+        if(key != ""){
+            this.key = key;
+        }
+        return this.getItems(type,page);
+    }
     public List<Item> getItems(int type,int page){
-        String Url = DoUrl.getUrl(type,page);
+        String Url;
+        if(key != "1"){
+            Url = DoUrl.getUrl(type,page,key);
+        }else {
+            Url = DoUrl.getUrl(type,page);
+        }
+        Log.d("url",Url);
         Document document = null;
         try {
             document = Jsoup.connect(Url)
@@ -33,7 +46,13 @@ public class Items {
             Item item = new Item();
             String title = element.select("a").first().text();
             String href = element.select("a").first().attr("href");
-            String img = element.select("img").first().attr("src");
+            String img;
+            if(key == "1"){
+                img = element.select("img").first().attr("src");
+            }else {
+                img = "";
+            }
+
             String content = element.select("div.entry-content").text();
             item.setTitle(title);
             item.setUrl(href);

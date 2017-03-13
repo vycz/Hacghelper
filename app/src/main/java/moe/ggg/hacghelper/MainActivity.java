@@ -1,5 +1,8 @@
 package moe.ggg.hacghelper;
 
+import android.app.SearchManager;
+import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
@@ -14,6 +17,8 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private AlertDialog.Builder builder;
+    private SearchView searchView;
+    private MenuItem menuItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,12 +39,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar,menu);
-        MenuItem menuItem = menu.findItem(R.id.bt_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        menuItem = menu.findItem(R.id.bt_search);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
+               searchView.onActionViewCollapsed();
+                Intent intent = new Intent(MainActivity.this,SearchResultActivity.class);
+                intent.putExtra("key",query);
+                startActivity(intent);
+                return true;
             }
 
             @Override
@@ -71,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
         builder.setPositiveButton("确定",null);
         builder.create().show();
     }
-    public void showReachable(){
+    public void getReachable(String query){
+
+
     }
 }

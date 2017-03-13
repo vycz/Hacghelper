@@ -41,6 +41,15 @@ public class PageFrament extends Fragment {
     private MyHandler myHandler;
     private MyAdapter myAdapter;
     private ProgressDialog progressDialog;
+    private String key = "";
+    public static PageFrament getPageFrament(int type,String key){
+        Bundle bundle = new Bundle();
+        bundle.putInt("type",type);
+        bundle.putString("key",key);
+        PageFrament pageFrament = new PageFrament();
+        pageFrament.setArguments(bundle);
+        return pageFrament;
+    }
     public static PageFrament getPageFrament(int type){
         Bundle bundle = new Bundle();
         bundle.putInt("type",type);
@@ -53,6 +62,9 @@ public class PageFrament extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mtype = getArguments().getInt("type");
+        if(getArguments().getString("key") != ""){
+            this.key = getArguments().getString("key");
+        }
     }
 
     @Nullable
@@ -84,7 +96,13 @@ public class PageFrament extends Fragment {
     class MyRunnable implements Runnable{
         @Override
         public void run() {
-            List<Item> t_item = new Items().getItems(mtype,page);
+            List<Item> t_item;
+            if(key == ""){
+                t_item = new Items().getItems(mtype,page);
+            }else {
+                t_item = new Items().getItems(mtype,page,key);
+            }
+
             Message msg = new Message();
             msg.obj = t_item;
             myHandler.sendMessage(msg);

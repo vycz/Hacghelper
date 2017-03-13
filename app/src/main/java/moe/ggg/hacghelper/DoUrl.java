@@ -13,7 +13,14 @@ public class DoUrl {
     public static final String URL_COMIC = "http://www.hacg.fi/wp/comic.html";
     public static final String URL_GAME = "http://www.hacg.fi/wp/game.html";
     public static final String URL_OP = "http://www.hacg.fi/wp/op.html";
+    public static final String URL_SEARCH = "http://www.hacg.fi/wp/?s=";
+    public static final String URL_SEARCH2 = "&submit=%E6%90%9C%E7%B4%A2";
 
+    public static String key;
+    public static String getUrl(int Type,int currentPage,String key){
+        DoUrl.key = key;
+        return DoUrl.getUrl(Type,currentPage);
+    }
     public static String getUrl(int Type,int currentPage){
         String urlStr = "";
         switch (Type){
@@ -35,8 +42,11 @@ public class DoUrl {
             case 6:
                 urlStr = URL_OP;
                 break;
+            case 7:
+                urlStr = URL_SEARCH + DoUrl.key+URL_SEARCH2;
+                break;
         }
-        if(currentPage > 1)
+        if(currentPage > 1&&currentPage != 7)
             urlStr += "/page/"+currentPage;
         return urlStr;
     }
