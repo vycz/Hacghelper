@@ -1,17 +1,12 @@
 package moe.ggg.hacghelper;
 
-import android.app.SearchManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.FrameLayout;
-import android.widget.Toast;
 
 /**
  * Created by orange on 2017/3/13.
