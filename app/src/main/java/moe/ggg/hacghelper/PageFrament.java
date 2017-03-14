@@ -150,7 +150,6 @@ public class PageFrament extends Fragment {
         }
     }
     public void setMyAdapter(){
-
         myAdapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
             @Override
             public void OnItemClick(View v, Item item) {
