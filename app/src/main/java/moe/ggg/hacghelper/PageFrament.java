@@ -40,8 +40,9 @@ public class PageFrament extends Fragment {
     private int STATE = 1;
     private MyHandler myHandler;
     private MyAdapter myAdapter;
+    private MySearchAdapter mySearchAdapter;
     private ProgressDialog progressDialog;
-    private String key = "";
+    private String key;
     public static PageFrament getPageFrament(int type,String key){
         Bundle bundle = new Bundle();
         bundle.putInt("type",type);
@@ -62,7 +63,7 @@ public class PageFrament extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mtype = getArguments().getInt("type");
-        if(getArguments().getString("key") != ""){
+        if(getArguments().getString("key") != null){
             this.key = getArguments().getString("key");
         }
     }
@@ -97,7 +98,7 @@ public class PageFrament extends Fragment {
         @Override
         public void run() {
             List<Item> t_item;
-            if(key == ""){
+            if(key == null){
                 t_item = new Items().getItems(mtype,page);
             }else {
                 t_item = new Items().getItems(mtype,page,key);
@@ -116,9 +117,15 @@ public class PageFrament extends Fragment {
             List<Item> h_item = (List<Item>)msg.obj;
             switch (STATE){
                 case 1:
-                    myAdapter = new MyAdapter(h_item,context);
-                    myAdapter.addData(h_item);
-                    recyclerView.setAdapter(myAdapter);
+                    if(key == null){
+                        myAdapter = new MyAdapter(h_item,context);
+                        myAdapter.addData(h_item);
+                        recyclerView.setAdapter(myAdapter);
+                    }else{
+                        mySearchAdapter = new MySearchAdapter(h_item,context);
+                        mySearchAdapter.addData(h_item);
+                        recyclerView.setAdapter(mySearchAdapter);
+                    }
                     recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
                     break;
                 case 2:
@@ -133,13 +140,28 @@ public class PageFrament extends Fragment {
                     materialRefreshLayout.finishRefresh();
                     break;
             }
-            set();
+            if(key == null){
+                setMyAdapter();
+            }else
+                setMySearchAdapter();
             progressDialog.dismiss();
         }
     }
-    public void set(){
+    public void setMyAdapter(){
 
         myAdapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
+            @Override
+            public void OnItemClick(View v, Item item) {
+                Intent intent = new Intent(context,ContentActivity.class);
+                intent.putExtra("url",item.getUrl());
+                intent.putExtra("title",item.getTitle());
+                intent.putExtra("imgurl",item.getImage());
+                startActivity(intent);
+            }
+        });
+    }
+    public void setMySearchAdapter(){
+        mySearchAdapter.setOnItemClickListener(new MySearchAdapter.OnItemClickListener() {
             @Override
             public void OnItemClick(View v, Item item) {
                 Intent intent = new Intent(context,ContentActivity.class);
