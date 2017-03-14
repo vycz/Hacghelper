@@ -129,9 +129,11 @@ public class PageFrament extends Fragment {
                     recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
                     break;
                 case 2:
-                    int position = myAdapter.getItemCount()+1;
-                    myAdapter.addData(h_item);
-                    recyclerView.scrollToPosition(position);
+                    if(h_item != null){
+                        int position = myAdapter.getItemCount()+1;
+                        myAdapter.addData(h_item);
+                        recyclerView.scrollToPosition(position);
+                    }
                     materialRefreshLayout.finishRefreshLoadMore();
                     break;
                 case 3:
