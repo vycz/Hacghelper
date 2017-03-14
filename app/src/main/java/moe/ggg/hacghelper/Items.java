@@ -15,31 +15,31 @@ import java.util.List;
 
 public class Items {
     private List<Item> Items;
-    private String key = "1";
+    private String key;
     public List<Item> getItems(int type,int page,String key){
-        if(key != ""){
+        if(key != null)
             this.key = key;
-        }
         return this.getItems(type,page);
     }
     public List<Item> getItems(int type,int page){
         String Url;
-        if(key != "1"){
-            Url = DoUrl.getUrl(type,page,key);
-        }else {
+        if(key == null){
             Url = DoUrl.getUrl(type,page);
+        }else {
+            Url = DoUrl.getUrl(type,page,key);
         }
-        Log.d("url",Url);
+        Log.d("urlxx",Url);
         Document document = null;
         try {
             document = Jsoup.connect(Url)
                     .userAgent("Mozilla/5.0 (Windows NT 6.1; rv:22.0) Gecko/20100101 Firefox/22.0")
                     .ignoreContentType(true)
-                    .timeout(30000)
+                    .timeout(100000)
                     .get();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        Log.d("urlcontent",document.toString());
         Elements article = document.getElementsByTag("article");
         Items = new ArrayList<>();
         for (Element element:article) {
@@ -47,12 +47,10 @@ public class Items {
             String title = element.select("a").first().text();
             String href = element.select("a").first().attr("href");
             String img;
-            if(key == "1"){
+            if(key == null){
                 img = element.select("img").first().attr("src");
-            }else {
+            }else
                 img = "";
-            }
-
             String content = element.select("div.entry-content").text();
             item.setTitle(title);
             item.setUrl(href);
