@@ -26,11 +26,6 @@ import java.util.List;
  */
 
 public class PageFrament extends Fragment {
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.context = context;
-    }
     private int showstate = 2;
     private Context context;
     private RecyclerView recyclerView;
@@ -43,6 +38,11 @@ public class PageFrament extends Fragment {
     private MySearchAdapter mySearchAdapter;
     private ProgressDialog progressDialog;
     private String key;
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
     public static PageFrament getPageFrament(int type,String key){
         Bundle bundle = new Bundle();
         bundle.putInt("type",type);
