@@ -15,20 +15,19 @@ import java.util.List;
 
 public class Items {
     private List<Item> Items;
-    private String key;
+    private String key = "";
     public List<Item> getItems(int type,int page,String key){
-        if(key != null)
+        if(key != "")
             this.key = key;
         return this.getItems(type,page);
     }
     public List<Item> getItems(int type,int page){
         String Url;
-        if(key == null){
+        if(key == ""){
             Url = DoUrl.getUrl(type,page);
         }else {
             Url = DoUrl.getUrl(type,page,key);
         }
-        Log.d("urlxx",Url);
         Document document = null;
         try {
             document = Jsoup.connect(Url)
@@ -39,18 +38,15 @@ public class Items {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Log.d("urlcontent",document.toString());
         Elements article = document.getElementsByTag("article");
         Items = new ArrayList<>();
         for (Element element:article) {
             Item item = new Item();
             String title = element.select("a").first().text();
             String href = element.select("a").first().attr("href");
-            String img;
-            if(key == null){
+            String img = "";
+            if(element.select("img").first() != null)
                 img = element.select("img").first().attr("src");
-            }else
-                img = "";
             String content = element.select("div.entry-content").text();
             item.setTitle(title);
             item.setUrl(href);
