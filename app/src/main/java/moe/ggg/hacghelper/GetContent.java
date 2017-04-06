@@ -33,7 +33,6 @@ public class GetContent {
         }
         Elements e = document.select("div.entry-content");
         return e.html();
-
     }
 
 }
