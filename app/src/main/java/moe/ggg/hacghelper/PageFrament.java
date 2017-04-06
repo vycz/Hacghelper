@@ -142,11 +142,11 @@ public class PageFrament extends Fragment {
                     materialRefreshLayout.finishRefresh();
                     break;
             }
+            progressDialog.dismiss();
             if(key == null){
                 setMyAdapter();
             }else
                 setMySearchAdapter();
-            progressDialog.dismiss();
         }
     }
     public void setMyAdapter(){
